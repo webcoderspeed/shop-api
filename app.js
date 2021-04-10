@@ -3,7 +3,6 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-
 // Connecting with Database
 const mongoose = require('mongoose');
 mongoose.connect(process.env.DATABASE_URL, {
@@ -13,7 +12,6 @@ mongoose.connect(process.env.DATABASE_URL, {
 .catch(err =>  console.log(err));
 // Handling DeprecationWarning: Mongoose
 mongoose.Promise = global.Promise;
-
 
 
 // Handling CORS 
@@ -32,10 +30,11 @@ app.use((req, res, next) => {
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 
-// Setting Morgan and BodyParser
+// Setting up morgan and bodyParser and making upload as static
 app.use(morgan('dev'));
+app.use('/uploads',express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 
 // Setting Routes

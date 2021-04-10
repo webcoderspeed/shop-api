@@ -29,7 +29,6 @@ router.get('/', (req, res, next) => {
   Product.find()
   .select('name price _id productImage')
   .exec()
-
   .then(docs => {
     const response = {
       count: docs.length,
