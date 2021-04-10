@@ -13,6 +13,7 @@ const storage = multer.diskStorage({
     cb(null, `${uuidv4()}` + file.originalname);
   }
 });
+const pathName = 'https://node-shop-api-demo.herokuapp.com/'
 const imageMimeTypes = [
   'image/jpg',
   'image/jpeg',
@@ -38,7 +39,7 @@ router.get('/', (req, res, next) => {
            price: product.price,
            id: product._id,
            productImage: product.productImage,
-          request: {
+           request: {
             type:'GET',
             description:'Fetch the individual product',
             url: `/products/${product._id}`
@@ -97,7 +98,7 @@ router.post('/', upload.single('productImage'),(req, res, next) => {
   const product = new Product({
     name: req.body.name,
     price: req.body.price,
-    productImage: req.file.path
+    productImage:pathName + req.file.path
   })
   product.save()
   .then(result => {
